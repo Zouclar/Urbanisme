@@ -64,6 +64,7 @@ class ImportFoldersCommand extends Command
         $progressBar = new ProgressBar($output, $lineCount);
         $progressBar->start();
 
+        $i = 1;
         while (($data = fgetcsv($file)) !== FALSE) {
             // S'assurer que le tableau $data a au moins 4 éléments
             $data = array_pad($data, 4, null);
@@ -77,6 +78,8 @@ class ImportFoldersCommand extends Command
             // Vérifier si les quatre champs sont vides ou nuls
             if (empty($urbaPermissionNumber) && empty($petitionerName) && empty($addressOfWorks) && empty($detailsOfWorks)) {
                 $progressBar->advance();
+                $io->text('Ligne '.$i.' blanche !');
+                $i++;
                 continue; // Passer à la ligne suivante sans persister
             }
 
@@ -91,6 +94,7 @@ class ImportFoldersCommand extends Command
 
             // Mettre à jour la barre de progression
             $progressBar->advance();
+            $i++;
         }
 
         fclose($file);
