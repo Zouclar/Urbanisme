@@ -1,0 +1,27 @@
+{{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+    <div class="row g-3">
+        <div class="col-md-6">
+            {{ form_label(form.urbaPermissionNumber, 'Numéro de permis d\'urbanisme', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.urbaPermissionNumber, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.urbaPermissionNumber) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_label(form.petitionerName, 'Nom du demandeur', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.petitionerName, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.petitionerName) }}
+        </div>
+        <div class="col-12">
+            {{ form_label(form.addressOfWorks, 'Adresse des travaux', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.addressOfWorks, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.addressOfWorks) }}
+        </div>
+        <div class="col-12">
+            {{ form_label(form.detailsOfWorks, 'Détails des travaux', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.detailsOfWorks, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.detailsOfWorks) }}
+        </div>
+    </div>
+    <div class="mt-4">
+        <button type="submit" class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+    </div>
+{{ form_end(form) }}

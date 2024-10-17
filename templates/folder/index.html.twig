@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dossiers{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1>Dossiers</h1>
+        <a href="{{ path('app_folder_new') }}" class="btn btn-success mt-3">Nouveau Dossier</a>
+
+        <table class="table table-striped table-bordered mt-3" id="table">
+            <thead class="table-dark">
+                <tr>
+                    <th>Numéro d'autorisation d'urbanisme</th>
+                    <th>Nom du pétitionnnaire</th>
+                    <th>Adresse des travaux</th>
+                    <th>Détails des travaux</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for folder in folders %}
+                <tr>
+                    <td>{{ folder.urbaPermissionNumber }}</td>
+                    <td>{{ folder.petitionerName }}</td>
+                    <td>{{ folder.addressOfWorks }}</td>
+                    <td>{{ folder.detailsOfWorks }}</td>
+                    <td>
+                        <a href="{{ path('app_folder_show', {'id': folder.id}) }}" class="btn btn-sm btn-primary">Afficher</a>
+                        <a href="{{ path('app_folder_edit', {'id': folder.id}) }}" class="btn btn-sm btn-secondary">Editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
