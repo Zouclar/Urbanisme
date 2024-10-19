@@ -21,7 +21,7 @@ final class FolderController extends AbstractController
             'folders' => $folderRepository->findAll(),
         ]);
     }
-
+    
     #[Route('/new', name: 'app_folder_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -33,6 +33,7 @@ final class FolderController extends AbstractController
             $entityManager->persist($folder);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Dossier bien ajouté 👍');
             return $this->redirectToRoute('app_folder_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -59,6 +60,7 @@ final class FolderController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
+            $this->addFlash('success', 'Dossier bien modifié 👍');
             return $this->redirectToRoute('app_folder_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -76,6 +78,7 @@ final class FolderController extends AbstractController
             $entityManager->flush();
         }
 
+        $this->addFlash('danger', 'Dossier bien supprimé 🗑️');
         return $this->redirectToRoute('app_folder_index', [], Response::HTTP_SEE_OTHER);
     }
 }
