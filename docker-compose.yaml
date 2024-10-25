@@ -1,0 +1,42 @@
+version: "3"
+
+services:
+  db:
+    image: mariadb:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=symfony
+      - MYSQL_USER=symfony
+      - MYSQL_PASSWORD=password
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+
+  php-fpm:
+    build: .
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./:/app
+    depends_on:
+      - db
+
+  apache:
+    image: httpd:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./apache.conf:/usr/local/apache2/conf/httpd.conf
+      - ./:/var/www/html
+    depends_on:
+      - php-fpm
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    environment:
+      - PMA_HOST=db
+      - PMA_USER=symfony
+      - PMA_PASSWORD=password
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
